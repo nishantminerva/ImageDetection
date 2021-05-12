@@ -53,25 +53,25 @@ class App extends React.Component {
    
   }
 
+  displayFaceBox = (box) => {
+    console.log(box);
+    this.setState({box : box});
+  }
+
   onInputChange = (event) => {
     this.setState({input: event.target.value});
   }
 
 
-  displayFaceBox = (box) => {
-    this.setState({box : box});
-  }
+  
 
   onButtonSubmit =() => {
     this.setState({imageUrl : this.state.input});
     app.models.predict(
       Clarifai.FACE_DETECT_MODEL,
        this.state.input)
-       .then(response => 
-         this.displayFaceBox(this.calculateFaceLocation(response))
-         )
-        //  console.log(response)
-      .catch(err => console.log(err))
+       .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+      .catch(err => console.log(err));
     
   }
 
